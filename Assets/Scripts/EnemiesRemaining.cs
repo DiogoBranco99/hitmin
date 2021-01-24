@@ -13,6 +13,7 @@ public class EnemiesRemaining : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if(enemies.Length == 0) {
             enemiesRemaining.color = Color.green;
+            FindObjectOfType<GameManager>().LevelComplete();
         }
         enemiesRemaining.text = enemies.Length.ToString("0");
     }
