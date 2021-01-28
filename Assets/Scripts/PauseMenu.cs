@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject crosshairUI;
     public GameObject Player;
-    public GameObject Gun;
+    public GameObject WeaponHolder;
 
     void Start() {
         pauseMenuUI.SetActive(false);
@@ -33,7 +33,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         Player.GetComponent<PlayerMovement>().enabled = true;
-        Gun.GetComponent<Gun>().enabled = true;
+        WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = true;
+        WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = true;
         Cursor.visible = false;
     }
  
@@ -42,7 +43,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
-        Gun.GetComponent<Gun>().enabled = false;
+        WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = false;
+        WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = false;
         Player.GetComponent<PlayerMovement>().enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
