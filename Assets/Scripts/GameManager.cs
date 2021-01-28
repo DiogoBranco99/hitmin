@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         if(!gameHasEnded) {
             gameHasEnded = true;
             timer.StopTimer();
-            Invoke("Restart", restartDelay);
+            // Invoke("Restart", restartDelay);
         }
     }
 
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         if(!gameHasEnded) {
             gameHasEnded = true;
             timer.StopTimer();
-            Invoke("NextLevel", restartDelay);
+            // Invoke("NextLevel", restartDelay);
         }
     }
 

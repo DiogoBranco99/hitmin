@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject crosshairUI;
     public GameObject Player;
     public GameObject Gun;
 
@@ -28,6 +29,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume() {
         pauseMenuUI.SetActive(false);
+        crosshairUI.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = false;
         Player.GetComponent<PlayerMovement>().enabled = true;
@@ -36,6 +38,7 @@ public class PauseMenu : MonoBehaviour
     }
  
     void Pause() {
+        crosshairUI.SetActive(false);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
