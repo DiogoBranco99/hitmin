@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - SpawnerPointPlayer
+  - SpawnerPointEnemy
+  - SpawnerPointNPC
+  - SpawnerPointExch
+  - SpawnerPointClues
+  - NavmeshTag
+  - HealthbarTag
   layers:
   - Default
   - TransparentFX
