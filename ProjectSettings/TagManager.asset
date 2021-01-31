@@ -12,6 +12,11 @@ TagManager:
   - SpawnerPointClues
   - NavmeshTag
   - HealthbarTag
+  - Clue
+  - NPC
+  - Victim
+  - SpawnerPointVictim
+  - ExchangePoint
   layers:
   - Default
   - TransparentFX
