@@ -28,7 +28,7 @@ public class VictimBehavior : MonoBehaviour
 
         if (!targetInSightRange && !targetInAttackRange)
         {
-            Patroling();
+            Stop();
         }
         else if (targetInSightRange && !targetInAttackRange)
         {
@@ -49,30 +49,10 @@ public class VictimBehavior : MonoBehaviour
 
     private void Stop()
     {
-        return;
+        agent.SetDestination(transform.position);
+        transform.LookAt(player);
     }
 
-    private void Patroling()
-    {
-        if (!walkPointSet)
-        {
-            SearchWalkPoint();
-        }
-
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-        }
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        if (distanceToWalkPoint.magnitude < 1f)
-        {
-            walkPointSet = false;
-        }
-
-
-    }
 
     private void Chase()
     {
