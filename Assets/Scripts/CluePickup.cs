@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CluePickup : MonoBehaviour
 {
-    // public GameObject pickupEffect;
+    public GameObject pickupEffect;
     public GameObject hotOrColdUI;
     public int clueDuration;
 
@@ -15,7 +15,7 @@ public class CluePickup : MonoBehaviour
     }
 
     IEnumerator Pickup() {
-        // Instantiate (pickupEffect, transform.position, transform.rotation);
+        Instantiate (pickupEffect, transform.position, transform.rotation);
 
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
