@@ -10,7 +10,6 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
 
-
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -53,29 +52,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Patroling()
     {
-        if (!walkPointSet)
-        {
-            SearchWalkPoint();
-        }
-
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-        }
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        if (distanceToWalkPoint.magnitude < 1f)
-        {
-            walkPointSet = false;
-        }
-
-
+        agent.SetDestination(player.position);
+        agent.speed = 1;
     }
 
     private void Chase()
     {
         agent.SetDestination(player.position);
+        agent.speed = 8;
     }
 
     private void Attack()
@@ -86,7 +70,7 @@ public class EnemyAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack code
-            
+
             //
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -134,4 +118,6 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+
+    public float getAttackRange() { return attackRange; }
 }
