@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawnPoint : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SpawnPoint : MonoBehaviour
     private string tagToFindLocations;
     private string parentCallingName;
     private bool findSingular = true;
+    private bool isEnemyOrVictim = false;
 
     void Awake()
     {
@@ -22,31 +24,31 @@ public class SpawnPoint : MonoBehaviour
                 tagToFindLocations = "SpawnerPointPlayer";
                 tagToFindObject = "Player";
                 findSingular = true;
+                isEnemyOrVictim = false;
                 break;
             case "SpawnersEnemy":
                 tagToFindLocations = "SpawnerPointEnemy";
                 tagToFindObject = "Enemy";
                 findSingular = true;
+                isEnemyOrVictim = true;
                 break;
             case "SpawnersClues":
                 tagToFindLocations = "SpawnerPointClues";
                 tagToFindObject = "Clue";
                 findSingular = false;
-                break;
-            case "SpawnersNPCs":
-                tagToFindLocations = "SpawnerPointNPC";
-                tagToFindObject = "NPC";
-                findSingular = false;
+                isEnemyOrVictim = false;
                 break;
             case "SpawnersVictim":
                 tagToFindLocations = "SpawnerPointVictim";
                 tagToFindObject = "Victim";
                 findSingular = true;
+                isEnemyOrVictim = true;
                 break;
             case "SpawnersExchange":
                 tagToFindLocations = "SpawnerPointExch";
                 tagToFindObject = "ExchangePoint";
                 findSingular = true;
+                isEnemyOrVictim = false;
                 break;
             default:
                 break;
@@ -71,7 +73,15 @@ public class SpawnPoint : MonoBehaviour
     private void SpawnObj()
     {
         int spawn = Random.Range(0, spawnLocations.Length);
-        gObject.transform.position = spawnLocations[spawn].transform.position;
+        if(isEnemyOrVictim)
+        {
+            gObject.GetComponent<NavMeshAgent>().Warp(spawnLocations[spawn].transform.position);
+        }
+        else
+        {
+            gObject.transform.position = spawnLocations[spawn].transform.position;
+        }
+        
     }
 
     private void SpawnObjects()
