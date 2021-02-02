@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
-        Debug.Log("Game Over!");
         if(!gameHasEnded) {
+            Debug.Log("Game Over!");
             gameHasEnded = true;
             timer.StopTimer();
             // Invoke("Restart", restartDelay);
@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void LevelComplete() {
-        Debug.Log("Level Complete!");
         if(!gameHasEnded) {
+            Debug.Log("Level Complete!");
             gameHasEnded = true;
             timer.StopTimer();
             // Invoke("NextLevel", restartDelay);

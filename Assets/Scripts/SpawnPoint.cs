@@ -16,7 +16,6 @@ public class SpawnPoint : MonoBehaviour
     {
         
         parentCallingName = gameObject.name;
-        Debug.Log(parentCallingName);
 
         switch (parentCallingName){
             case "SpawnersPlayer":
@@ -54,14 +53,12 @@ public class SpawnPoint : MonoBehaviour
         }
 
         spawnLocations = GameObject.FindGameObjectsWithTag(tagToFindLocations);
-        Debug.Log(spawnLocations);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         if (findSingular){
-            Debug.Log(tagToFindObject);
             gObject = (GameObject)GameObject.FindGameObjectWithTag(tagToFindObject);
             SpawnObj();
         } else {
@@ -75,7 +72,6 @@ public class SpawnPoint : MonoBehaviour
     {
         int spawn = Random.Range(0, spawnLocations.Length);
         gObject.transform.position = spawnLocations[spawn].transform.position;
-        Debug.Log(spawnLocations[spawn].transform.position);
     }
 
     private void SpawnObjects()

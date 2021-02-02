@@ -29,7 +29,10 @@ public class CountdownTimer : MonoBehaviour
                 
                 }
             }
-            countdownText.text = currentTime.ToString("00:00");
+            float minutes = Mathf.FloorToInt(currentTime / 60);
+            float seconds = Mathf.FloorToInt(currentTime % 60);
+            countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
         }
     }
 
