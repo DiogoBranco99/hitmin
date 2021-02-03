@@ -66,15 +66,15 @@ public class Gun : MonoBehaviour {
         currentAmmo--;
 
         RaycastHit hit; 
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) { 
-            Debug.Log(hit.transform.name);
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
 
-            Target target = hit.transform.GetComponent<Target>();
+            MinionAI target1 = hit.transform.GetComponent<MinionAI>();
+            EnemyAI target2 = hit.transform.GetComponent<EnemyAI>();
 
-            if(target != null) {
+            if (target1 != null || target2 != null) {
                 GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(bloodGO, 2f);
-                target.TakeDamage(damage);
+                target1.TakeDamage(damage);
             }
 
             else

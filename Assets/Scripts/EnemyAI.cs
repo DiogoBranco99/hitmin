@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public GameObject ballGameObject;
+    public bool isPaused = false;
+    public float damageDone;
 
     //Patroling
     public Vector3 walkPoint;
@@ -42,7 +44,10 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            Attack();
+            if (!isPaused)
+            {
+                Attack();
+            }
         }
     }
 
@@ -99,7 +104,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
 
@@ -137,7 +142,8 @@ public class EnemyAI : MonoBehaviour
         GameObject newSphere = Instantiate(ballGameObject, enemy.position, Quaternion.identity);
         // ballGameObject is object to be thrown
         newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
-        DestroyObject(newSphere, 10);
+        player.GetComponent<PlayerHealth>().TakeDamage(damageDone);
+        Destroy(newSphere, 2f);
     }
 
     // Helper method to find angle between two points (v1 & v2) with respect to axis n
@@ -146,6 +152,11 @@ public class EnemyAI : MonoBehaviour
         return Mathf.Atan2(
             Vector3.Dot(n, Vector3.Cross(v1, v2)),
             Vector3.Dot(v1, v2)) * Mathf.Rad2Deg;
+    }
+
+    public void setgameIsPaused(bool condition)
+    {
+        isPaused = condition;
     }
 
 

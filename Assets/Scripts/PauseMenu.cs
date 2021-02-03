@@ -32,6 +32,12 @@ public class PauseMenu : MonoBehaviour
         crosshairUI.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        FindObjectOfType<EnemyAI>().setgameIsPaused(false);
+        GameObject[] minions = GameObject.FindGameObjectsWithTag("Minion");
+        for (int i = 0; i < minions.Length; i++)
+        {
+            minions[i].GetComponent<MinionAI>().setgameIsPaused(false);
+        }
         Player.GetComponent<PlayerMovement>().enabled = true;
         WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = true;
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = true;
@@ -43,6 +49,12 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        FindObjectOfType<EnemyAI>().setgameIsPaused(true);
+        GameObject[] minions = GameObject.FindGameObjectsWithTag("Minion");
+        for (int i = 0; i < minions.Length; i++)
+        {
+            minions[i].GetComponent<MinionAI>().setgameIsPaused(true);
+        }
         WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = false;
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = false;
         Player.GetComponent<PlayerMovement>().enabled = false;

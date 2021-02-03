@@ -17,6 +17,7 @@ TagManager:
   - Victim
   - SpawnerPointVictim
   - ExchangePoint
+  - Minion
   layers:
   - Default
   - TransparentFX
