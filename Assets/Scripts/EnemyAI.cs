@@ -6,9 +6,11 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public Transform enemy;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
+    public GameObject ballGameObject;
 
     //Patroling
     public Vector3 walkPoint;
@@ -48,6 +50,7 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        enemy = GameObject.Find("Enemy").transform;
     }
 
     private void Patroling()
@@ -70,7 +73,7 @@ public class EnemyAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack code
-
+            ThrowBallAtTargetLocation(player.position, 10f);
             //
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -120,4 +123,30 @@ public class EnemyAI : MonoBehaviour
     }
 
     public float getAttackRange() { return attackRange; }
+
+    public void ThrowBallAtTargetLocation(Vector3 targetLocation, float initialVelocity)
+    {
+        Vector3 direction = (targetLocation - enemy.position).normalized;
+        float distance = Vector3.Distance(targetLocation, transform.position);
+
+        Vector3 elevation = Quaternion.AngleAxis(90, enemy.right) * enemy.up;
+        float directionAngle = AngleBetweenAboutAxis(enemy.forward, direction, enemy.up);
+        Vector3 velocity = Quaternion.AngleAxis(directionAngle, enemy.up) * elevation * initialVelocity;
+
+
+        GameObject newSphere = Instantiate(ballGameObject, enemy.position, Quaternion.identity);
+        // ballGameObject is object to be thrown
+        newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
+        DestroyObject(newSphere, 10);
+    }
+
+    // Helper method to find angle between two points (v1 & v2) with respect to axis n
+    public static float AngleBetweenAboutAxis(Vector3 v1, Vector3 v2, Vector3 n)
+    {
+        return Mathf.Atan2(
+            Vector3.Dot(n, Vector3.Cross(v1, v2)),
+            Vector3.Dot(v1, v2)) * Mathf.Rad2Deg;
+    }
+
+
 }
