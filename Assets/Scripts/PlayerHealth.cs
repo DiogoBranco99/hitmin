@@ -27,21 +27,18 @@ public class PlayerHealth : MonoBehaviour
     void Update () {
         int multiplier = 0;
         double damage = 0.3;
-        if(enemy == null)
+        if(enemy != null)
         {
-            return;
+            if (inDistance(enemy))
+            {
+                TakeDamage(1);
+            }
         }
         if (Input.GetKeyDown(KeyCode.Tab)) {
 			TakeDamage(20);
 		}
-        if (inDistance(enemy))
-        {
-            TakeDamage(1);
-        }
         multiplier = RefreshMinionCount();
         TakeDamage(damage * multiplier);
-         
-      
     }
 
     bool inDistance(Transform t)
