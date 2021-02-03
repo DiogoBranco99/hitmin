@@ -29,4 +29,14 @@ public class PlayerHealth : MonoBehaviour
         //Destroy(gameObject);
         FindObjectOfType<GameManager>().GameOver();
     }
+
+    public void doubleHealth()
+    {
+        currentHealth *= 2;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthBar.SetHealth((int)currentHealth);
+    }
 }

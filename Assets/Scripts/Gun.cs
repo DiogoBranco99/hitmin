@@ -72,9 +72,18 @@ public class Gun : MonoBehaviour {
             EnemyAI target2 = hit.transform.GetComponent<EnemyAI>();
 
             if (target1 != null || target2 != null) {
-                GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(bloodGO, 2f);
-                target1.TakeDamage(damage);
+                if(target1 != null)
+                {
+                    GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(bloodGO, 2f);
+                    target1.TakeDamage(damage);
+                }
+                if (target2 != null)
+                {
+                    GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(bloodGO, 2f);
+                    target2.TakeDamage(damage);
+                }
             }
 
             else
@@ -88,5 +97,15 @@ public class Gun : MonoBehaviour {
             }
             
         } 
+    }
+
+    public void doubleDamage()
+    {
+        damage *= 2;
+    }
+
+    public void resetDoubleDamage()
+    {
+        damage /= 2;
     }
 }

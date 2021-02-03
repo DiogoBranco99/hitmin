@@ -109,13 +109,8 @@ public class MinionAI : MonoBehaviour
 
         if (health <= 0)
         {
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            Destroy(gameObject);
         }
-    }
-
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
@@ -139,8 +134,8 @@ public class MinionAI : MonoBehaviour
         GameObject newSphere = Instantiate(ballGameObject, enemy.position, Quaternion.identity);
         // ballGameObject is object to be thrown
         newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
-        player.GetComponent<PlayerHealth>().TakeDamage(1);
-        Destroy(newSphere, 2f);
+        player.GetComponent<PlayerHealth>().TakeDamage(damageDone);
+        Destroy(newSphere, 1f);
     }
 
     // Helper method to find angle between two points (v1 & v2) with respect to axis n

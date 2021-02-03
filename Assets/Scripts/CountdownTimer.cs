@@ -5,8 +5,8 @@ using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
-    public float currentTime = 0f;
-    public float startingTime = 10f;
+    public float currentTime;
+    public float startingTime;
     bool stop;
     public TextMeshProUGUI countdownText;
 
@@ -24,6 +24,7 @@ public class CountdownTimer : MonoBehaviour
                     currentTime = 0;
                     NPCHealth npc = FindObjectOfType<NPCHealth>();
                     if(npc.health >= 0f) {
+                        Debug.Log("Time is up and victim is alive");
                         FindObjectOfType<GameManager>().LevelComplete();
                     }
                 

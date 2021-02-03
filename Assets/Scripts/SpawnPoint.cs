@@ -32,9 +32,9 @@ public class SpawnPoint : MonoBehaviour
                 findSingular = true;
                 isEnemyOrVictim = true;
                 break;
-            case "SpawnersClues":
-                tagToFindLocations = "SpawnerPointClues";
-                tagToFindObject = "Clue";
+            case "SpawnersPickups":
+                tagToFindLocations = "SpawnerPointPickups";
+                tagToFindObject = "Pickup";
                 findSingular = false;
                 isEnemyOrVictim = false;
                 break;

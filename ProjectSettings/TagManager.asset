@@ -9,15 +9,16 @@ TagManager:
   - SpawnerPointEnemy
   - SpawnerPointNPC
   - SpawnerPointExch
-  - SpawnerPointClues
   - NavmeshTag
   - HealthbarTag
-  - Clue
   - NPC
   - Victim
   - SpawnerPointVictim
   - ExchangePoint
   - Minion
+  - Pickup
+  - Undefined
+  - SpawnerPointPickups
   layers:
   - Default
   - TransparentFX
