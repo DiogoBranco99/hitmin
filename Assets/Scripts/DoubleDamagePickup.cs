@@ -6,6 +6,8 @@ public class DoubleDamagePickup : MonoBehaviour
 {
     public GameObject pickupEffect;
     public GameObject weaponHolder;
+    public GameObject healthBoostUI;
+    public GameObject cluesUI;
     public int duration;
 
     void OnTriggerEnter(Collider other)
@@ -27,10 +29,16 @@ public class DoubleDamagePickup : MonoBehaviour
         weaponHolder.transform.GetChild(0).GetComponent<Gun>().doubleDamage();
         weaponHolder.transform.GetChild(1).GetComponent<Gun>().doubleDamage();
 
+        healthBoostUI.SetActive(false);
+        cluesUI.SetActive(false);
+
         yield return new WaitForSeconds(duration);
 
         weaponHolder.transform.GetChild(0).GetComponent<Gun>().resetDoubleDamage();
         weaponHolder.transform.GetChild(1).GetComponent<Gun>().resetDoubleDamage();
+
+        healthBoostUI.SetActive(true);
+        cluesUI.SetActive(true);
 
         Destroy(gameObject);
     }
