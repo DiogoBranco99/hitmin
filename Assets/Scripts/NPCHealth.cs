@@ -1,24 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCHealth : MonoBehaviour
 {
-    public float health;
+    public double currentHealth;
+    public int maxHealth = 1000;
+    public HealthBar healthBar;
 
-    void Start () {
-        health = 50f;
-    }
-    
-    void Update () { 
-        if (health <= 0f) { 
-            Die(); 
-        } 
+    void Start()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
+    public void TakeDamage(double damage)
+    {
+        FindObjectOfType<AudioManagerScript>().Play("damage");
 
-    void Die () { 
-        Destroy(gameObject);
+        currentHealth -= damage;
+
+        healthBar.SetHealth((int)currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        //Destroy(gameObject);
         FindObjectOfType<GameManager>().GameOver();
+        FindObjectOfType<AudioManagerScript>().Play("game_over");
+    }
+
+    public void doubleHealth()
+    {
+        currentHealth *= 2;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthBar.SetHealth((int)currentHealth);
     }
 }

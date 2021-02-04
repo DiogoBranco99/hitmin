@@ -54,7 +54,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("NPCVictim").transform;
         agent = GetComponent<NavMeshAgent>();
         enemy = GameObject.Find("Enemy").transform;
     }
@@ -155,7 +155,7 @@ public class EnemyAI : MonoBehaviour
         GameObject newSphere = Instantiate(ballGameObject, enemy.position + enemy.forward * 2, Quaternion.identity);
         // ballGameObject is object to be thrown
         newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
-        player.GetComponent<PlayerHealth>().TakeDamage(damageDone);
+        player.GetComponent<NPCHealth>().TakeDamage(damageDone);
         Destroy(newSphere, 1f);
     }
 

@@ -18,12 +18,15 @@ public class CountdownTimer : MonoBehaviour
     void Update() {
         if(!stop) {
             currentTime -= 1 * Time.deltaTime;
-            if(currentTime <= 3.45) {
+            if(currentTime <= 3.45)
+            {
                 countdownText.color = Color.red;
-                if(currentTime <= 0) {
+                if(currentTime <= 0)
+                {
                     currentTime = 0;
                     NPCHealth npc = FindObjectOfType<NPCHealth>();
-                    if(npc.health >= 0f) {
+                    if(npc.currentHealth >= 0f)
+                    {
                         Debug.Log("Time is up and victim is alive");
                         FindObjectOfType<GameManager>().LevelComplete();
                     }

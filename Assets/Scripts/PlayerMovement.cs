@@ -7,8 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
-
-    public float speed = 12f;
+    private float speed = 8f;
     public float gravity = -9.81f;
     public float jumpHeight = 1.2f;
 
@@ -17,16 +16,12 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     Vector3 velocity;
-    bool isGrounded;
-
+    bool isSlowed;
     void Update()
     {
-
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0)
+        if (isSlowed)
         {
-            velocity.y = -2f;
+            speed = 4f;
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -36,14 +31,22 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Debug.Log("Jumping");
-            velocity.y = (float) Math.Sqrt(jumpHeight * -2f * gravity);
-        }
-
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void restoreSpeed()
+    {
+        isSlowed = false;
+        speed = 8f;
+    }
+
+    public void Slow()
+    {
+        isSlowed = true;
+        // wait x seconds and invoke restore speed
+        Invoke("restoreSpeed", 3);
+
     }
 }

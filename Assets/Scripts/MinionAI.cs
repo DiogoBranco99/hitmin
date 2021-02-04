@@ -134,7 +134,7 @@ public class MinionAI : MonoBehaviour
         GameObject newSphere = Instantiate(ballGameObject, enemy.position, Quaternion.identity);
         // ballGameObject is object to be thrown
         newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
-        player.GetComponent<PlayerHealth>().TakeDamage(damageDone);
+        player.GetComponent<PlayerMovement>().Slow();
         Destroy(newSphere, 1f);
     }
 
@@ -150,4 +150,6 @@ public class MinionAI : MonoBehaviour
     {
         isPaused = condition;
     }
+
+
 }
