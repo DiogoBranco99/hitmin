@@ -28,6 +28,8 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool targetInSightRange, targetInAttackRange;
 
+    public bool isSlowed = false;
+
     public void Update()
     {
         targetInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -66,7 +68,14 @@ public class EnemyAI : MonoBehaviour
     private void Chase()
     {
         agent.SetDestination(player.position);
-        agent.speed = 8;
+        if (isSlowed)
+        {
+            agent.speed = 4;
+        } else
+        {
+            agent.speed = 8;
+        }
+        
     }
 
     private void Attack()
@@ -103,22 +112,24 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void StunOrSlow(bool doesStun)
     {
-        //nome da funcao depois podemos alterar se fizer diferença
-        //health -= damage;
 
-        // stun agent here
-        agent.isStopped = true;
-
-        // wait x seconds and invoke unstun
-        Invoke("unstun", 3);
-
-
-        if (health <= 0)
+        if (doesStun)
         {
-            Destroy(gameObject);
+            // stun agent here
+            agent.isStopped = true;
+
+            // wait x seconds and invoke unstun
+            Invoke("unstun", 4);
+        } else
+        {
+            isSlowed = true;
+
+            // wait x seconds and invoke restore speed
+            Invoke("restoreSpeed", 3);
         }
+
     }
 
 
@@ -164,5 +175,10 @@ public class EnemyAI : MonoBehaviour
     public void unstun()
     {
         agent.isStopped = false;
+    }
+
+    public void restoreSpeed()
+    {
+        isSlowed = false;
     }
 }

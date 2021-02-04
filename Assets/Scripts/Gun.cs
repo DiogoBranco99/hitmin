@@ -26,6 +26,8 @@ public class Gun : MonoBehaviour {
 
     private float nextTimeToFire = 0f;
 
+    public bool weaponStuns;
+
     AudioSource shootingSound;
 
     // public Animator animator;
@@ -107,7 +109,8 @@ public class Gun : MonoBehaviour {
                 {
                     GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
                     Destroy(bloodGO, 2f);
-                    target2.TakeDamage(damage);
+                    target2.StunOrSlow(weaponStuns);
+
                 }
             }
 
