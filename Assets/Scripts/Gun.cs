@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour {
+
+    public Text ammoDisplay;
 
     public float damage = 10f; 
     public float range = 100f; 
@@ -10,6 +13,8 @@ public class Gun : MonoBehaviour {
 
     public int maxAmmo = 10;
     private int currentAmmo;
+    private int ammoToReload;
+    public int ammoToAdd;
     public float reloadTime = 1f;
     private bool isReloading = false;
     private GameObject player;
@@ -35,16 +40,18 @@ public class Gun : MonoBehaviour {
     }
 
     // Update is called once per frame 
-    void Update () { 
+    void Update () {
+        ammoDisplay.text = "Ammo: " + currentAmmo.ToString() + "\n" + ammoToReload.ToString();
+
         if(isReloading) 
             return; 
 
-        if(currentAmmo <= 0) {
+        if(currentAmmo <= 0 && ammoToReload > 0) {
             StartCoroutine(Reload());
             return;
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire) { 
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentAmmo > 0) { 
             nextTimeToFire = Time.time + 1f/fireRate;
             Shoot();
             sendBall();
@@ -67,7 +74,9 @@ public class Gun : MonoBehaviour {
         yield return new WaitForSeconds(reloadTime -.25f);
         // animator.SetBool("Reloading", false);
         yield return new WaitForSeconds(.25f);
-        currentAmmo = maxAmmo;
+        //currentAmmo = maxAmmo;
+        currentAmmo = ammoToReload;
+        ammoToReload = 0;
         isReloading = false;
     }
 
@@ -124,7 +133,7 @@ public class Gun : MonoBehaviour {
     public void addAmmo()
     {
         Debug.Log(currentAmmo);
-        currentAmmo += 5; //podemos decidir depois o valor
+        ammoToReload += ammoToAdd; //podemos decidir depois o valor
         Debug.Log(currentAmmo);
     }
 
