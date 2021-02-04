@@ -16,6 +16,7 @@ public class HealthBoostPickup : MonoBehaviour
         {
             StartCoroutine(Pickup());
         }
+        FindObjectOfType<AudioManagerScript>().Play("power_ups");
     }
 
     IEnumerator Pickup()

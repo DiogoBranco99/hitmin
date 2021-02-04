@@ -26,12 +26,15 @@ public class Gun : MonoBehaviour {
 
     private float nextTimeToFire = 0f;
 
+    AudioSource shootingSound;
+
     // public Animator animator;
 
     void Start() {
         currentAmmo = maxAmmo;
         player = GameObject.FindGameObjectWithTag("Player");
         projectile = GameObject.Find("projectile");
+        shootingSound = GetComponent<AudioSource>();
     }
 
     void OnEnable () {
@@ -55,7 +58,8 @@ public class Gun : MonoBehaviour {
             nextTimeToFire = Time.time + 1f/fireRate;
             Shoot();
             sendBall();
-        } 
+            shootingSound.Play();
+        }
     }
 
     void sendBall()
@@ -80,7 +84,7 @@ public class Gun : MonoBehaviour {
         isReloading = false;
     }
 
-    void Shoot () { 
+    void Shoot () {
 
         muzzleFlash.Play();
 

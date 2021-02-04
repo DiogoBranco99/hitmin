@@ -14,6 +14,7 @@ public class CluePickup : MonoBehaviour
         if(other.CompareTag("Player")) {
             StartCoroutine(Pickup());
         }
+        FindObjectOfType<AudioManagerScript>().Play("power_ups");
     }
 
     IEnumerator Pickup() {

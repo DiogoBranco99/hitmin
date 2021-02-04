@@ -16,7 +16,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(double damage)
 	{
-		currentHealth -= damage;
+        FindObjectOfType<AudioManagerScript>().Play("damage");
+
+        currentHealth -= damage;
         
 		healthBar.SetHealth((int)currentHealth);
 
@@ -28,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     void Die () { 
         //Destroy(gameObject);
         FindObjectOfType<GameManager>().GameOver();
+        FindObjectOfType<AudioManagerScript>().Play("game_over");
     }
 
     public void doubleHealth()
