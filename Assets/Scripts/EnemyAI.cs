@@ -134,8 +134,7 @@ public class EnemyAI : MonoBehaviour
         float directionAngle = AngleBetweenAboutAxis(enemy.forward, direction, enemy.up);
         Vector3 velocity = Quaternion.AngleAxis(directionAngle, enemy.up) * elevation * initialVelocity;
 
-
-        GameObject newSphere = Instantiate(ballGameObject, enemy.position, Quaternion.identity);
+        GameObject newSphere = Instantiate(ballGameObject, enemy.position + enemy.forward * 2, Quaternion.identity);
         // ballGameObject is object to be thrown
         newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
         player.GetComponent<PlayerHealth>().TakeDamage(damageDone);

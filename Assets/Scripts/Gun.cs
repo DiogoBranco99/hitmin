@@ -12,11 +12,12 @@ public class Gun : MonoBehaviour {
     private int currentAmmo;
     public float reloadTime = 1f;
     private bool isReloading = false;
-
+    private GameObject player;
     public Camera fpsCam; 
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
     public GameObject bloodSplatter;
+    private GameObject projectile;
 
     private float nextTimeToFire = 0f;
 
@@ -24,6 +25,8 @@ public class Gun : MonoBehaviour {
 
     void Start() {
         currentAmmo = maxAmmo;
+        player = GameObject.FindGameObjectWithTag("Player");
+        projectile = GameObject.Find("projectile");
     }
 
     void OnEnable () {
@@ -43,8 +46,17 @@ public class Gun : MonoBehaviour {
 
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire) { 
             nextTimeToFire = Time.time + 1f/fireRate;
-            Shoot(); 
+            Shoot();
+            sendBall();
         } 
+    }
+
+    void sendBall()
+    {
+        GameObject go = (GameObject)Instantiate(projectile, player.transform.position + player.transform.forward * 2, player.transform.rotation);
+        go.GetComponent<Rigidbody>().AddForce(player.transform.forward * 1400f);
+        Destroy(go, 1f);
+
     }
 
     IEnumerator Reload() {

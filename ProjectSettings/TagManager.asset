@@ -19,6 +19,7 @@ TagManager:
   - Pickup
   - Undefined
   - SpawnerPointPickups
+  - Weapon
   layers:
   - Default
   - TransparentFX
