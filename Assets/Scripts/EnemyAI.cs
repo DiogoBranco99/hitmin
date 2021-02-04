@@ -28,7 +28,6 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool targetInSightRange, targetInAttackRange;
 
-
     public void Update()
     {
         targetInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -106,7 +105,15 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
+        //nome da funcao depois podemos alterar se fizer diferença
+        //health -= damage;
+
+        // stun agent here
+        agent.isStopped = true;
+
+        // wait x seconds and invoke unstun
+        Invoke("unstun", 3);
+
 
         if (health <= 0)
         {
@@ -154,5 +161,8 @@ public class EnemyAI : MonoBehaviour
         isPaused = condition;
     }
 
-
+    public void unstun()
+    {
+        agent.isStopped = false;
+    }
 }

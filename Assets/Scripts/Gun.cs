@@ -120,4 +120,12 @@ public class Gun : MonoBehaviour {
     {
         damage /= 2;
     }
+
+    public void addAmmo()
+    {
+        Debug.Log(currentAmmo);
+        currentAmmo += 5; //podemos decidir depois o valor
+        Debug.Log(currentAmmo);
+    }
+
 }
