@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour {
 
     // Update is called once per frame 
     void Update () {
-        ammoDisplay.text = "Ammo: " + currentAmmo.ToString() + "\n" + ammoToReload.ToString();
+        ammoDisplay.text = "Ammo: " + currentAmmo.ToString()+ "/" + ammoToReload.ToString();
 
         if(isReloading) 
             return; 
