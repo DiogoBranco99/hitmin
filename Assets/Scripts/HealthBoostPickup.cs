@@ -8,15 +8,20 @@ public class HealthBoostPickup : MonoBehaviour
     public GameObject pickupEffect;
     public GameObject doubleDamageUI;
     public GameObject cluesUI;
+    private GameObject[] clues;
+    private GameObject[] addAmmo;
+    private GameObject[] healthBoost;
     public int duration;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            addAmmo = GameObject.FindGameObjectsWithTag("AddAmmo");
+            clues = GameObject.FindGameObjectsWithTag("Clues");
             StartCoroutine(Pickup());
+            FindObjectOfType<AudioManagerScript>().Play("power_ups");
         }
-        FindObjectOfType<AudioManagerScript>().Play("power_ups");
     }
 
     IEnumerator Pickup()
@@ -30,13 +35,43 @@ public class HealthBoostPickup : MonoBehaviour
         doubleDamageUI.SetActive(false);
         cluesUI.SetActive(false);
 
-        FindObjectOfType<PlayerHealth>().doubleHealth();
+        disablePickups();
+
+        FindObjectOfType<NPCHealth>().doubleHealth();
 
         yield return new WaitForSeconds(duration);
 
         doubleDamageUI.SetActive(true);
         cluesUI.SetActive(true);
 
+        resetPickups();
+
         Destroy(gameObject);
+    }
+
+    void disablePickups()
+    {
+        for (int i = 0; i < addAmmo.Length; i++)
+        {
+            addAmmo[i].SetActive(false);
+        }
+        for (int i = 0; i < clues.Length; i++)
+        {
+            clues[i].SetActive(false);
+        }
+
+    }
+
+    void resetPickups()
+    {
+        for (int i = 0; i < addAmmo.Length; i++)
+        {
+            addAmmo[i].SetActive(true);
+        }
+        for (int i = 0; i < clues.Length; i++)
+        {
+            clues[i].SetActive(true);
+        }
+
     }
 }

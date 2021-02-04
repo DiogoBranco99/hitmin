@@ -17,8 +17,7 @@ public class EnemiesRemaining : MonoBehaviour
         numberOfEnemies = minions.Length + hitmans.Length;
         if (numberOfEnemies == 0) {
             enemiesRemaining.color = Color.green;
-            Debug.Log("Inimigos mortos");
-            FindObjectOfType<GameManager>().LevelComplete();
+            //FindObjectOfType<GameManager>().LevelComplete();
         }
         enemiesRemaining.text = numberOfEnemies.ToString("0");
     }

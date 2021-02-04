@@ -10,6 +10,7 @@ public class HotOrCold : MonoBehaviour
     private float previousDistance;
     private float currentDistance;
     public float nearDistance;
+    public float intermediateDistance;
     public float farDistance;
     public TextMeshProUGUI hotOrCold;
 
@@ -37,6 +38,11 @@ public class HotOrCold : MonoBehaviour
             if(currentDistance <= nearDistance) {
                 hotOrCold.color = Color.red;
                 hotOrCold.text = "Burning red";
+            }
+            else if (currentDistance <= intermediateDistance)
+            {
+                hotOrCold.color = new Color(1f, 0.38f, 0.28f);
+                hotOrCold.text = "Very hot";
             }
             else {
                 hotOrCold.color = Color.yellow;

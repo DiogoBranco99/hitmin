@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class Gun : MonoBehaviour {
 
-    public Text ammoDisplay;
+    public TextMeshProUGUI ammoDisplay;
 
     public float damage = 10f; 
     public float range = 100f; 
