@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     public GameObject ballGameObject;
     public bool isPaused = false;
     public float damageDone;
+    private Transform location;
+
 
     //Patroling
     public Vector3 walkPoint;
@@ -62,6 +64,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.Find("NPCVictim").transform;
         agent = GetComponent<NavMeshAgent>();
         enemy = GameObject.Find("Enemy").transform;
+        location = GameObject.Find("Arm03").transform;
     }
 
     private void Patroling()
@@ -150,14 +153,14 @@ public class EnemyAI : MonoBehaviour
 
     public void ThrowBallAtTargetLocation(Vector3 targetLocation, float initialVelocity)
     {
-        Vector3 direction = (targetLocation - enemy.position).normalized;
+        Vector3 direction = (targetLocation - location.position).normalized;
         float distance = Vector3.Distance(targetLocation, transform.position);
 
-        Vector3 elevation = Quaternion.AngleAxis(90, enemy.right) * enemy.up;
-        float directionAngle = AngleBetweenAboutAxis(enemy.forward, direction, enemy.up);
-        Vector3 velocity = Quaternion.AngleAxis(directionAngle, enemy.up) * elevation * initialVelocity;
+        Vector3 elevation = Quaternion.AngleAxis(90, location.right) * location.up;
+        float directionAngle = AngleBetweenAboutAxis(location.forward, direction, location.up);
+        Vector3 velocity = Quaternion.AngleAxis(directionAngle, location.up) * elevation * initialVelocity;
 
-        GameObject newSphere = Instantiate(ballGameObject, enemy.position + enemy.forward * 2, Quaternion.identity);
+        GameObject newSphere = Instantiate(ballGameObject, location.position + location.forward, Quaternion.identity);
         // ballGameObject is object to be thrown
         newSphere.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.VelocityChange);
         player.GetComponent<NPCHealth>().TakeDamage(damageDone);

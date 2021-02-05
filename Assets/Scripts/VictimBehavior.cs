@@ -9,6 +9,7 @@ public class VictimBehavior : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
+    private Animator anim;
 
 
     //Patroling
@@ -45,10 +46,12 @@ public class VictimBehavior : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
     private void Stop()
     {
+        anim.SetBool("InRangeDistant", true);
         agent.SetDestination(transform.position);
         transform.LookAt(player);
     }
@@ -56,6 +59,7 @@ public class VictimBehavior : MonoBehaviour
 
     private void Chase()
     {
+        anim.SetBool("InRangeDistant", false);
         agent.SetDestination(player.position);
     }
 
