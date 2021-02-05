@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class Menus : MonoBehaviour
 {
@@ -12,8 +14,20 @@ public class Menus : MonoBehaviour
     public GameObject crosshairUI;
     public GameObject Player;
     public GameObject WeaponHolder;
+    public GameObject timeLeft;
+    public GameObject seconds;
+    public GameObject hotOrCold;
+    public GameObject healthBar;
+    public GameObject ammoDisplay;
+    public GameObject clue;
+    public GameObject extraHealth;
+    public GameObject extraAmmo;
     private bool canPause;
     private bool canResume;
+
+    public GameObject loadingScreen;
+    public Slider slider;
+    public TextMeshProUGUI progressPercentage;
 
     void Start() {
         pauseMenuUI.SetActive(false);
@@ -121,9 +135,35 @@ public class Menus : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().buildIndex));
         GameIsPaused = false;
         Time.timeScale = 1f;
+    }
+
+    IEnumerator LoadAsyncronously(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        timeLeft.SetActive(false);
+        seconds.SetActive(false);
+        clue.SetActive(false);
+        extraHealth.SetActive(false);
+        extraAmmo.SetActive(false);
+        ammoDisplay.SetActive(false);
+        healthBar.SetActive(false);
+        hotOrCold.SetActive(false);
+        loadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            slider.value = progress;
+
+            progressPercentage.text = (progress * 100f).ToString("0") + "%";
+
+            yield return null;
+        }
     }
 
     public void LoadMenu() {

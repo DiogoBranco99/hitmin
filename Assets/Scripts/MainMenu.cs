@@ -2,11 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
+
+    public GameObject loadingScreen;
+    public Slider slider;
+    public TextMeshProUGUI progressPercentage;
+
     public void PlayGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(LoadAsyncronously(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
+    IEnumerator LoadAsyncronously(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        loadingScreen.SetActive(true); 
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            slider.value = progress;
+
+            progressPercentage.text = (progress * 100f).ToString("0") + "%";
+
+            yield return null;
+        }
+
     }
 
     public void QuitGame() {
