@@ -24,6 +24,11 @@ public class EnemyAI : MonoBehaviour
     bool alreadyAttacked;
     public GameObject projectile;
 
+    public float patrollingSpeed;
+    public float slowedSpeed;
+    public float chasingSpeed;
+
+
     //States 
     public float sightRange, attackRange;
     public bool targetInSightRange, targetInAttackRange;
@@ -62,7 +67,7 @@ public class EnemyAI : MonoBehaviour
     private void Patroling()
     {
         agent.SetDestination(player.position);
-        agent.speed = 1;
+        agent.speed = patrollingSpeed;
     }
 
     private void Chase()
@@ -70,10 +75,10 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(player.position);
         if (isSlowed)
         {
-            agent.speed = 4;
+            agent.speed = slowedSpeed;
         } else
         {
-            agent.speed = 8;
+            agent.speed = chasingSpeed;
         }
         
     }

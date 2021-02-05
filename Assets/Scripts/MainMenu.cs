@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public GameObject loadingScreen;
+    public GameObject mainMenu;
     public Slider slider;
     public TextMeshProUGUI progressPercentage;
 
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
+        mainMenu.SetActive(false);
         loadingScreen.SetActive(true); 
 
         while (!operation.isDone)

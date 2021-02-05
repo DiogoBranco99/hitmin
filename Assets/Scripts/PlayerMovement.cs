@@ -7,22 +7,36 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
-    private float speed = 8f;
+    private float speed;
+    public float normalSpeed;
+    public float slowedSpeed;
     public float gravity = -9.81f;
     public float jumpHeight = 1.2f;
 
     public Transform groundCheck;
     public float groundDistance = 1.5f;
     public LayerMask groundMask;
+    AudioSource stepsSound;
+    private float lastPosition;
 
     Vector3 velocity;
     bool isSlowed;
+
+    void Start ()
+    {
+        stepsSound = GetComponent<AudioSource>();
+        //lastPosition = Vector3.Distance(transform.position, transform.position);
+    }
 
     void Update()
     {
         if (isSlowed)
         {
-            speed = 4f;
+            speed = slowedSpeed;
+        }
+        else
+        {
+            speed = normalSpeed;
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -32,22 +46,36 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
+        //Invoke("FootstepSounds", 1.5f);
+
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
     }
 
     public void restoreSpeed()
     {
         isSlowed = false;
-        speed = 8f;
     }
 
     public void Slow()
     {
         isSlowed = true;
-        // wait x seconds and invoke restore speed
         Invoke("restoreSpeed", 3);
 
     }
+
+    /*
+    void FootstepSounds()
+    {
+
+        if (transform.position + 0.5 > lastPosition)
+        {
+            stepsSound.Play();
+        }
+
+        lastPosition = currentPosition;
+    }
+    */
 }

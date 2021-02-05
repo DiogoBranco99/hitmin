@@ -76,7 +76,6 @@ public class Gun : MonoBehaviour {
     IEnumerator Reload() {
 
         isReloading = true;
-        Debug.Log("Reloading...");
         // animator.SetBool("Reloading", true);
         yield return new WaitForSeconds(reloadTime -.25f);
         // animator.SetBool("Reloading", false);
@@ -140,9 +139,7 @@ public class Gun : MonoBehaviour {
 
     public void addAmmo()
     {
-        Debug.Log(currentAmmo);
         ammoToReload += ammoToAdd; //podemos decidir depois o valor
-        Debug.Log(currentAmmo);
     }
 
 }
