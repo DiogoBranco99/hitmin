@@ -35,7 +35,7 @@ public class NPCHealth : MonoBehaviour
     {
         //Destroy(gameObject);
         FindObjectOfType<GameManager>().GameOver();
-        FindObjectOfType<AudioManagerScript>().Play("game_over");
+        
     }
 
     public void doubleHealth()

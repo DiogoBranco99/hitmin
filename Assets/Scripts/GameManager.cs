@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver() {
         if(!gameHasEnded) {
+            FindObjectOfType<AudioManagerScript>().Play("game_over");
             Debug.Log("Game Over!");
             gameHasEnded = true;
             timer.StopTimer();
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelComplete() {
         if(!gameHasEnded) {
+            FindObjectOfType<AudioManagerScript>().Play("level_complete");
             Debug.Log("Level Complete!");
             gameHasEnded = true;
             timer.StopTimer();
