@@ -8,7 +8,7 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent agent;
     public Transform enemy;
     public Transform player;
-    public LayerMask whatIsGround, whatIsPlayer;
+    public LayerMask whatIsGround, whatIsPlayer, whatIsPlayer2;
     public float health;
     public GameObject ballGameObject;
     public bool isPaused = false;
@@ -33,8 +33,17 @@ public class EnemyAI : MonoBehaviour
 
     //States 
     public float sightRange, attackRange;
-    public bool targetInSightRange, targetInAttackRange;
+    public bool targetInSightRange, targetInAttackRange, playerInSightRange;
+    public GameObject combatMusic;
+    private AudioSource combatMusicAudio;
 
+    public void Start()
+    {
+        combatMusicAudio = combatMusic.GetComponent<AudioSource>();
+    }
+
+    public Transform playerFPS;
+    private bool hasPlayed = false;
     public bool isSlowed = false;
 
     public void Update()
@@ -56,6 +65,19 @@ public class EnemyAI : MonoBehaviour
             {
                 Attack();
             }
+        }
+
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer2);
+
+        if (playerInSightRange && !hasPlayed)
+        {
+            combatMusicAudio.Play();
+            hasPlayed = true;
+        }
+        else if (!playerInSightRange)
+        {
+            combatMusicAudio.Stop();
+            hasPlayed = false;
         }
     }
 
