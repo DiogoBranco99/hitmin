@@ -8,15 +8,21 @@ public class PlayerHealth : MonoBehaviour
     public double currentHealth;
     public int maxHealth = 1000;
     public HealthBar healthBar;
+    AudioSource damageSound;
+    AudioSource[] sounds;
 
     void Start () {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        sounds = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
+        Debug.Log("asd");
+        damageSound = sounds[0];
     }
 
     public void TakeDamage(double damage)
 	{
-        FindObjectOfType<AudioManagerScript>().Play("damage");
+        Debug.Log(sounds);
+        damageSound.Play();
 
         currentHealth -= damage;
         

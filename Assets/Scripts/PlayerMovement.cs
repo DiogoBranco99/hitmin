@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isSlowed;
+
     void Update()
     {
         if (isSlowed)

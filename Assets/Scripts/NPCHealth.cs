@@ -8,16 +8,18 @@ public class NPCHealth : MonoBehaviour
     public double currentHealth;
     public int maxHealth = 1000;
     public HealthBar healthBar;
+    AudioSource damageSound;
 
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        damageSound = GetComponent<AudioSource>();
     }
 
     public void TakeDamage(double damage)
     {
-        FindObjectOfType<AudioManagerScript>().Play("damage");
+        damageSound.Play();
 
         currentHealth -= damage;
 

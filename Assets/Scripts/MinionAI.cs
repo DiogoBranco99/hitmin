@@ -28,6 +28,17 @@ public class MinionAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool targetInSightRange, targetInAttackRange;
 
+    //Sounds
+    AudioSource damageSound;
+    AudioSource[] sounds;
+
+    void Start()
+    {
+        sounds = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
+        Debug.Log(sounds);
+        damageSound = sounds[0];
+    }
+
 
     public void Update()
     {
@@ -71,6 +82,7 @@ public class MinionAI : MonoBehaviour
 
     private void Attack()
     {
+        damageSound.Play();
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
