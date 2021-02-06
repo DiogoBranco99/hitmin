@@ -21,16 +21,10 @@ public class CountdownTimer : MonoBehaviour
             if(currentTime <= 3.45)
             {
                 countdownText.color = Color.red;
-                if(currentTime <= 0)
+                if(currentTime <= 0.45)
                 {
                     currentTime = 0;
-                    NPCHealth npc = FindObjectOfType<NPCHealth>();
-                    if(npc.currentHealth >= 0f)
-                    {
-                        Debug.Log("Time is up and victim is alive");
-                        FindObjectOfType<GameManager>().LevelComplete();
-                    }
-                
+                    FindObjectOfType<GameManager>().GameOver();
                 }
             }
             float minutes = Mathf.FloorToInt(currentTime / 60);
