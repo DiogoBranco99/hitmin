@@ -3,12 +3,13 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
-public class Gun : MonoBehaviour {
+public class Gun : MonoBehaviour
+{
 
     public TextMeshProUGUI ammoDisplay;
 
-    public float damage = 10f; 
-    public float range = 100f; 
+    public float damage = 10f;
+    public float range = 100f;
     public float fireRate = 15f;
     public float impactForce = 30f;
 
@@ -19,7 +20,7 @@ public class Gun : MonoBehaviour {
     public float reloadTime = 1f;
     private bool isReloading = false;
     private GameObject player;
-    public Camera fpsCam; 
+    public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
     public GameObject bloodSplatter;
@@ -31,36 +32,49 @@ public class Gun : MonoBehaviour {
     public bool weaponStuns;
 
     AudioSource shootingSound;
+    AudioSource noBullets;
+    AudioSource reloadSound;
 
     public Animator animator;
 
-    void Start() {
+    void Start()
+    {
         currentAmmo = maxAmmo;
         player = GameObject.FindGameObjectWithTag("Player");
         projectile = GameObject.Find("projectile");
-        shootingSound = GetComponent<AudioSource>();
+        shootingSound = GetComponents<AudioSource>()[0];
+        reloadSound = GetComponents<AudioSource>()[1];
+        noBullets = GetComponents<AudioSource>()[2];
     }
 
-    void OnEnable () {
+    void OnEnable()
+    {
         isReloading = false;
         animator.SetBool("Reloading", false);
     }
 
     // Update is called once per frame 
-    void Update () {
-        ammoDisplay.text = "Ammo: " + currentAmmo.ToString()+ "/" + ammoToReload.ToString();
+    void Update()
+    {
+        ammoDisplay.text = "Ammo: " + currentAmmo.ToString() + "/" + ammoToReload.ToString();
 
-        if(isReloading) 
-            return; 
+        if (isReloading)
+            return;
 
-        if(currentAmmo <= 0 && ammoToReload > 0) {
-            Debug.Log("bah");
+        if (currentAmmo <= 0 && ammoToReload > 0)
+        {
             StartCoroutine(Reload());
             return;
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentAmmo > 0) { 
-            nextTimeToFire = Time.time + 1f/fireRate;
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentAmmo <= 0)
+        {
+            noBullets.Play();
+        }
+
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentAmmo > 0)
+        {
+            nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
             sendBall();
             shootingSound.Play();
@@ -74,11 +88,13 @@ public class Gun : MonoBehaviour {
         Destroy(go, 1f);
     }
 
-    IEnumerator Reload() {
+    IEnumerator Reload()
+    {
 
         isReloading = true;
         animator.SetBool("Reloading", true);
-        yield return new WaitForSeconds(reloadTime -.25f);
+        reloadSound.Play();
+        yield return new WaitForSeconds(reloadTime - .25f);
         animator.SetBool("Reloading", false);
         yield return new WaitForSeconds(.25f);
         if (ammoToReload <= maxAmmo)
@@ -93,20 +109,23 @@ public class Gun : MonoBehaviour {
         isReloading = false;
     }
 
-    void Shoot () {
+    void Shoot()
+    {
 
         muzzleFlash.Play();
 
         currentAmmo--;
 
-        RaycastHit hit; 
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
+        RaycastHit hit;
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        {
 
             MinionAI target1 = hit.transform.GetComponent<MinionAI>();
             EnemyAI target2 = hit.transform.GetComponent<EnemyAI>();
 
-            if (target1 != null || target2 != null) {
-                if(target1 != null)
+            if (target1 != null || target2 != null)
+            {
+                if (target1 != null)
                 {
                     GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
                     Destroy(bloodGO, 2f);
@@ -126,11 +145,12 @@ public class Gun : MonoBehaviour {
                 Destroy(impactGO, 2f);
             }
 
-            if(hit.rigidbody != null) {
+            if (hit.rigidbody != null)
+            {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
-            
-        } 
+
+        }
     }
 
     public void doubleDamage()
