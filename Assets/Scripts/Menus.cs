@@ -23,6 +23,7 @@ public class Menus : MonoBehaviour
     public GameObject extraHealth;
     public GameObject extraAmmo;
     public GameObject[] externalSounds;
+    public GameObject howToPlayUI;
     private bool canPause;
     private bool canResume;
 
@@ -192,6 +193,36 @@ public class Menus : MonoBehaviour
 
     public void QuitGame() {
         Application.Quit();
+    }
+
+    public void Back()
+    {
+        howToPlayUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        timeLeft.SetActive(true);
+        seconds.SetActive(true);
+        clue.SetActive(true);
+        extraHealth.SetActive(true);
+        extraAmmo.SetActive(true);
+        ammoDisplay.SetActive(true);
+        healthBar.SetActive(true);
+        hotOrCold.SetActive(true);
+        canResume = true;
+    }
+
+    public void HowToPlay()
+    {
+        pauseMenuUI.SetActive(false);
+        howToPlayUI.SetActive(true);
+        timeLeft.SetActive(false);
+        seconds.SetActive(false);
+        clue.SetActive(false);
+        extraHealth.SetActive(false);
+        extraAmmo.SetActive(false);
+        ammoDisplay.SetActive(false);
+        healthBar.SetActive(false);
+        hotOrCold.SetActive(false);
+        canResume = false;
     }
 
 }

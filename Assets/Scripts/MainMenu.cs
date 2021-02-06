@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject loadingScreen;
     public GameObject mainMenu;
+    public GameObject howToPlayUI;
     public Slider slider;
     public TextMeshProUGUI progressPercentage;
 
@@ -39,5 +40,17 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame() {
         Application.Quit();
+    }
+
+    public void Back()
+    {
+        howToPlayUI.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    public void HowToPlay()
+    {
+        mainMenu.SetActive(false);
+        howToPlayUI.SetActive(true);
     }
 }

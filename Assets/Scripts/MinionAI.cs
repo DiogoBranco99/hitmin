@@ -30,14 +30,11 @@ public class MinionAI : MonoBehaviour
 
     //Sounds
     AudioSource damageSound;
-    AudioSource[] sounds;
 
     void Start()
     {
-        sounds = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
-        damageSound = sounds[0];
+        damageSound = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
     }
-
 
     public void Update()
     {
@@ -81,7 +78,6 @@ public class MinionAI : MonoBehaviour
 
     private void Attack()
     {
-        damageSound.Play();
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
@@ -89,6 +85,7 @@ public class MinionAI : MonoBehaviour
         {
             //Attack code
             ThrowBallAtTargetLocation(player.position, 10f);
+            damageSound.Play();
             //
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
