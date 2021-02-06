@@ -20,6 +20,7 @@ public class VictimBehavior : MonoBehaviour
     //States 
     public float sightRange, attackRange;
     public bool targetInSightRange, targetInAttackRange;
+    private bool hasBeenDoubled = false;
 
 
     public void Update()
@@ -61,9 +62,13 @@ public class VictimBehavior : MonoBehaviour
     {
         anim.SetBool("InRangeDistant", false);
         agent.SetDestination(player.position);
+        if(!hasBeenDoubled)
+        {
+            FindObjectOfType<EnemyAI>().triplePatrollingSpeed();
+            hasBeenDoubled = true;
+        }
+        
     }
-
-
 
     private void SearchWalkPoint()
     {

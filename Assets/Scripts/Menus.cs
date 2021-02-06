@@ -26,6 +26,7 @@ public class Menus : MonoBehaviour
     public GameObject howToPlayUI;
     private bool canPause;
     private bool canResume;
+    private bool hotOrColdActive;
 
     public GameObject loadingScreen;
     public Slider slider;
@@ -55,6 +56,11 @@ public class Menus : MonoBehaviour
     public void Resume() {
         canPause = true;
         canResume = false;
+        if(hotOrColdActive)
+        {
+            hotOrCold.SetActive(true);
+            hotOrColdActive = false;
+        }
         pauseMenuUI.SetActive(false);
         crosshairUI.SetActive(true);
         Time.timeScale = 1f;
@@ -79,6 +85,10 @@ public class Menus : MonoBehaviour
     void Pause() {
         canPause = false;
         canResume = true;
+        if(hotOrCold.active)
+        {
+            hotOrColdActive = true;
+        }
         crosshairUI.SetActive(false);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -111,6 +121,7 @@ public class Menus : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         FindObjectOfType<EnemyAI>().setgameIsPaused(true);
+        FindObjectOfType<MouseLook>().setPaused(true);
         GameObject[] minions = GameObject.FindGameObjectsWithTag("Minion");
         for (int i = 0; i < minions.Length; i++)
         {
@@ -137,6 +148,7 @@ public class Menus : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         FindObjectOfType<EnemyAI>().setgameIsPaused(true);
+        FindObjectOfType<MouseLook>().setPaused(true);
         GameObject[] minions = GameObject.FindGameObjectsWithTag("Minion");
         for (int i = 0; i < minions.Length; i++)
         {
@@ -208,7 +220,10 @@ public class Menus : MonoBehaviour
         extraAmmo.SetActive(true);
         ammoDisplay.SetActive(true);
         healthBar.SetActive(true);
-        hotOrCold.SetActive(true);
+        if (hotOrColdActive)
+        {
+            hotOrCold.SetActive(true);
+        }
         canResume = true;
     }
 

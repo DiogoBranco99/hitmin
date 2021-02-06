@@ -218,4 +218,10 @@ public class EnemyAI : MonoBehaviour
     {
         isSlowed = false;
     }
+
+    public void triplePatrollingSpeed()
+    {
+        patrollingSpeed *= 3;
+    }
+
 }
