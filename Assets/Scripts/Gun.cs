@@ -80,9 +80,15 @@ public class Gun : MonoBehaviour {
         yield return new WaitForSeconds(reloadTime -.25f);
         // animator.SetBool("Reloading", false);
         yield return new WaitForSeconds(.25f);
-        //currentAmmo = maxAmmo;
-        currentAmmo = ammoToReload;
-        ammoToReload = 0;
+        if (ammoToReload <= maxAmmo)
+        {
+            currentAmmo = ammoToReload;
+        }
+        else
+        {
+            currentAmmo = maxAmmo;
+        }
+        ammoToReload -= currentAmmo;
         isReloading = false;
     }
 
