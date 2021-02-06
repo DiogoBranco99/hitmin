@@ -18,7 +18,7 @@ public class CountdownTimer : MonoBehaviour
     void Update() {
         if(!stop) {
             currentTime -= 1 * Time.deltaTime;
-            if(currentTime <= 3.45)
+            if(currentTime <= 5.45)
             {
                 countdownText.color = Color.red;
                 if(currentTime <= 0.45)

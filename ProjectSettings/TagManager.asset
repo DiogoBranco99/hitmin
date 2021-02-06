@@ -25,6 +25,7 @@ TagManager:
   - HealthBoosts
   - AddAmmo
   - CombatMusic
+  - ExternalSounds
   layers:
   - Default
   - TransparentFX

@@ -22,6 +22,7 @@ public class Menus : MonoBehaviour
     public GameObject clue;
     public GameObject extraHealth;
     public GameObject extraAmmo;
+    public GameObject[] externalSounds;
     private bool canPause;
     private bool canResume;
 
@@ -33,6 +34,7 @@ public class Menus : MonoBehaviour
         pauseMenuUI.SetActive(false);
         canPause = true;
         canResume = false;
+        externalSounds = GameObject.FindGameObjectsWithTag("ExternalSounds");
     }
  
     // Update is called once per frame
@@ -65,6 +67,10 @@ public class Menus : MonoBehaviour
         Player.GetComponent<PlayerMovement>().enabled = true;
         WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = true;
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = true;
+        for (int i = 0; i < externalSounds.Length; i++)
+        {
+            externalSounds[i].GetComponent<AudioSource>().UnPause();
+        }
         Cursor.visible = false;
     }
  
@@ -84,6 +90,10 @@ public class Menus : MonoBehaviour
         WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = false;
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = false;
         Player.GetComponent<PlayerMovement>().enabled = false;
+        for (int i = 0; i < externalSounds.Length; i++)
+        {
+            externalSounds[i].GetComponent<AudioSource>().Pause();
+        }
         Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
@@ -106,6 +116,10 @@ public class Menus : MonoBehaviour
         WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = false;
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = false;
         Player.GetComponent<PlayerMovement>().enabled = false;
+        for (int i = 0; i < externalSounds.Length; i++)
+        {
+            externalSounds[i].GetComponent<AudioSource>().Stop();
+        }
         Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
@@ -128,6 +142,10 @@ public class Menus : MonoBehaviour
         WeaponHolder.transform.GetChild(0).GetComponent<Gun>().enabled = false;
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = false;
         Player.GetComponent<PlayerMovement>().enabled = false;
+        for (int i = 0; i < externalSounds.Length; i++)
+        {
+            externalSounds[i].GetComponent<AudioSource>().Stop();
+        }
         Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
