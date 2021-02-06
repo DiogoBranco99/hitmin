@@ -60,6 +60,7 @@ public class Menus : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         FindObjectOfType<EnemyAI>().setgameIsPaused(false);
+        FindObjectOfType<MouseLook>().setPaused(false);
         GameObject[] minions = GameObject.FindGameObjectsWithTag("Minion");
         for (int i = 0; i < minions.Length; i++)
         {
@@ -83,6 +84,7 @@ public class Menus : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         FindObjectOfType<EnemyAI>().setgameIsPaused(true);
+        FindObjectOfType<MouseLook>().setPaused(true);
         GameObject[] minions = GameObject.FindGameObjectsWithTag("Minion");
         for (int i = 0; i < minions.Length; i++)
         {
