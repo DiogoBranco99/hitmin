@@ -38,8 +38,6 @@ public class CluePickup : MonoBehaviour
 
         yield return new WaitForSeconds(clueDuration);
 
-        Debug.Log("Depois do yield");
-
         hotOrColdUI.SetActive(false);
         doubleDamageUI.SetActive(true);
         healthBoostUI.SetActive(true);

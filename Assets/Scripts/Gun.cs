@@ -23,6 +23,7 @@ public class Gun : MonoBehaviour {
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
     public GameObject bloodSplatter;
+    public GameObject lightningEffect;
     private GameObject projectile;
 
     private float nextTimeToFire = 0f;
@@ -70,7 +71,6 @@ public class Gun : MonoBehaviour {
         GameObject go = (GameObject)Instantiate(projectile, player.transform.position + player.transform.forward * 2, player.transform.rotation);
         go.GetComponent<Rigidbody>().AddForce(player.transform.forward * 1400f);
         Destroy(go, 1f);
-
     }
 
     IEnumerator Reload() {
@@ -107,10 +107,9 @@ public class Gun : MonoBehaviour {
                 }
                 if (target2 != null)
                 {
-                    GameObject bloodGO = Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
-                    Destroy(bloodGO, 2f);
+                    GameObject lightningGO = Instantiate(lightningEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(lightningGO, 2f);
                     target2.StunOrSlow(weaponStuns);
-
                 }
             }
 

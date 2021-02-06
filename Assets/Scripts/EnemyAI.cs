@@ -48,7 +48,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     public Transform playerFPS;
-    private bool hasPlayed = false;
+    //private bool hasPlayed = false;
     public bool isSlowed = false;
 
     public void Update()
@@ -74,17 +74,17 @@ public class EnemyAI : MonoBehaviour
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer2);
 
-        if (playerInSightRange && !hasPlayed)
+        if (playerInSightRange)
         {
             backgroundMusicAudio.Pause();
             combatMusicAudio.UnPause();
-            hasPlayed = true;
+            //hasPlayed = true;
         }
         else if (!playerInSightRange)
         {
             backgroundMusicAudio.UnPause();
             combatMusicAudio.Pause();
-            hasPlayed = false;
+            //hasPlayed = false;
         }
     }
 

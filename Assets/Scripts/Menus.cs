@@ -69,7 +69,7 @@ public class Menus : MonoBehaviour
         WeaponHolder.transform.GetChild(1).GetComponent<Gun>().enabled = true;
         for (int i = 0; i < externalSounds.Length; i++)
         {
-            externalSounds[i].GetComponent<AudioSource>().UnPause();
+            externalSounds[i].GetComponent<AudioSource>().Play();
         }
         Cursor.visible = false;
     }
@@ -92,7 +92,7 @@ public class Menus : MonoBehaviour
         Player.GetComponent<PlayerMovement>().enabled = false;
         for (int i = 0; i < externalSounds.Length; i++)
         {
-            externalSounds[i].GetComponent<AudioSource>().Pause();
+           externalSounds[i].GetComponent<AudioSource>().Stop();   
         }
         Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
