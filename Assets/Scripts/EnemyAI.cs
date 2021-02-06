@@ -36,11 +36,15 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool targetInSightRange, targetInAttackRange, playerInSightRange;
     public GameObject combatMusic;
+    public GameObject backgroundMusic;
     private AudioSource combatMusicAudio;
+    private AudioSource backgroundMusicAudio;
 
     public void Start()
     {
         combatMusicAudio = combatMusic.GetComponent<AudioSource>();
+        backgroundMusicAudio = backgroundMusic.GetComponent<AudioSource>();
+        combatMusicAudio.Pause();
     }
 
     public Transform playerFPS;
@@ -72,12 +76,14 @@ public class EnemyAI : MonoBehaviour
 
         if (playerInSightRange && !hasPlayed)
         {
-            combatMusicAudio.Play();
+            backgroundMusicAudio.Pause();
+            combatMusicAudio.UnPause();
             hasPlayed = true;
         }
         else if (!playerInSightRange)
         {
-            combatMusicAudio.Stop();
+            backgroundMusicAudio.UnPause();
+            combatMusicAudio.Pause();
             hasPlayed = false;
         }
     }
