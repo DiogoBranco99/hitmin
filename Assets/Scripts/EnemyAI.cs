@@ -29,6 +29,7 @@ public class EnemyAI : MonoBehaviour
     public float patrollingSpeed;
     public float slowedSpeed;
     public float chasingSpeed;
+    public float stunTime;
 
 
     //States 
@@ -151,7 +152,7 @@ public class EnemyAI : MonoBehaviour
             agent.isStopped = true;
 
             // wait x seconds and invoke unstun
-            Invoke("unstun", 4);
+            Invoke("unstun", stunTime);
         } else
         {
             isSlowed = true;

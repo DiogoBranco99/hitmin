@@ -35,7 +35,6 @@ public class MinionAI : MonoBehaviour
     void Start()
     {
         sounds = GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>();
-        Debug.Log(sounds);
         damageSound = sounds[0];
     }
 

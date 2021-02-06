@@ -11,6 +11,7 @@ public class HotOrCold : MonoBehaviour
     private float currentDistance;
     public float nearDistance;
     public float intermediateDistance;
+    public float hotDistance;
     public float farDistance;
     public TextMeshProUGUI hotOrCold;
 
@@ -29,7 +30,7 @@ public class HotOrCold : MonoBehaviour
                 hotOrCold.text = "Cold";
             }
             else {
-                hotOrCold.color = Color.blue;
+                hotOrCold.color = new Color(0f, 0.6f, 0.6f);
                 hotOrCold.text = "Colder";
             }
             
@@ -41,8 +42,13 @@ public class HotOrCold : MonoBehaviour
             }
             else if (currentDistance <= intermediateDistance)
             {
-                hotOrCold.color = new Color(1f, 0.38f, 0.28f);
+                hotOrCold.color = new Color(1f, 0.47f, 0f);
                 hotOrCold.text = "Very hot";
+            }
+            else if (currentDistance <= hotDistance)
+            {
+                hotOrCold.color = new Color(1f, 0.68f, 0.39f);
+                hotOrCold.text = "Hot";
             }
             else {
                 hotOrCold.color = Color.yellow;

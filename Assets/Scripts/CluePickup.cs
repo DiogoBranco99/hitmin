@@ -17,6 +17,7 @@ public class CluePickup : MonoBehaviour
         if(other.CompareTag("Player")) {
             addAmmo = GameObject.FindGameObjectsWithTag("AddAmmo");
             healthBoost = GameObject.FindGameObjectsWithTag("HealthBoosts");
+            clues = GameObject.FindGameObjectsWithTag("Clues");
             StartCoroutine(Pickup());
             FindObjectOfType<AudioManagerScript>().Play("power_ups");
         }
@@ -36,6 +37,8 @@ public class CluePickup : MonoBehaviour
         disablePickups();
 
         yield return new WaitForSeconds(clueDuration);
+
+        Debug.Log("Depois do yield");
 
         hotOrColdUI.SetActive(false);
         doubleDamageUI.SetActive(true);
