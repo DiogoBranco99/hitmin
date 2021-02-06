@@ -32,7 +32,7 @@ public class Gun : MonoBehaviour {
 
     AudioSource shootingSound;
 
-    // public Animator animator;
+    public Animator animator;
 
     void Start() {
         currentAmmo = maxAmmo;
@@ -43,7 +43,7 @@ public class Gun : MonoBehaviour {
 
     void OnEnable () {
         isReloading = false;
-        // animator.SetBool("Reloading", false);
+        animator.SetBool("Reloading", false);
     }
 
     // Update is called once per frame 
@@ -54,6 +54,7 @@ public class Gun : MonoBehaviour {
             return; 
 
         if(currentAmmo <= 0 && ammoToReload > 0) {
+            Debug.Log("bah");
             StartCoroutine(Reload());
             return;
         }
@@ -76,9 +77,9 @@ public class Gun : MonoBehaviour {
     IEnumerator Reload() {
 
         isReloading = true;
-        // animator.SetBool("Reloading", true);
+        animator.SetBool("Reloading", true);
         yield return new WaitForSeconds(reloadTime -.25f);
-        // animator.SetBool("Reloading", false);
+        animator.SetBool("Reloading", false);
         yield return new WaitForSeconds(.25f);
         if (ammoToReload <= maxAmmo)
         {
