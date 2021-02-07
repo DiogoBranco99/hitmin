@@ -94,9 +94,9 @@ public class Gun : MonoBehaviour
         isReloading = true;
         animator.SetBool("Reloading", true);
         reloadSound.Play();
-        yield return new WaitForSeconds(reloadTime - .25f);
+        yield return new WaitForSeconds(reloadTime - .5f);
         animator.SetBool("Reloading", false);
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.5f);
         if (ammoToReload <= maxAmmo)
         {
             currentAmmo = ammoToReload;
